@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쿵쿵따</title>
+</head>
+
+<body>
+    <div><span id="order"></span>번째 참가자</div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text">
+    <button>입력</button>
+
+    <div>여태까지 나온 단어 <span id="memoryword"></span></div>
+</body>
+
+<script>
+    const number = Number(prompt('몇명참가?'));
+    const $order = document.querySelector('#order');
+    const $word = document.querySelector('#word');
+    const $input = document.querySelector('input');
+    const $button = document.querySelector('button');
+
+    let word; // 제시어
+    let newWord; // 다음 제시어
+    console.log(number)
+
+    const onClickButton = () => {
+        if (!word || (word[word.length - 1] === newWord[0] && newWord.length === 3)) {// 제시어 비어잇을때 
+            word = newWord // 입력한 단어 제시어 
+            if (word.length === 3) { // 세글자이면 통과
+                console.log("다음으로")
+                $input.value = "" // 인풋창은 비워주고
+                $word.textContent = word; // word에 값을 넣어라
+                const order = Number($order.textContent) //현재순서
+                if (order + 1 > number) { // 순서가 넘버(참가자)보다 크면 다시 1로 돌아가라
+                    $order.textContent = 1
+                } else { // 그게 아니라면 1을 추가해줘라
+                    $order.textContent = order + 1
+                }
+
+            } else {
+                alert("세글자만 입력하세요")
+                $input.value = ""
+                word = "";
+            }
+
+
+        }
+        else {
+            alert("게임이 끝났니다.")
+            $input.value = ""
+            word = "";
+            $order.textContent = 1
+
+
+        }
+    }
+    const onInput = (event) => {
+        newWord = event.target.value;
+    }
+
+    $button.addEventListener("click", onClickButton);
+    $input.addEventListener('input', onInput);
+
+
+
+</script>
+
+
+</html>
