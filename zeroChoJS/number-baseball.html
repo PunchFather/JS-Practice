@@ -7,6 +7,7 @@
 
 <body>
     <form id="form">
+        <!-- form 태그 안에 input태그가 감싸있으면 input에 이벤트를 주는게 아니라form에 준다. -->
         <input type="text" id="input">
         <button>확인</button>
     </form>
@@ -29,7 +30,59 @@
         }
         console.log(answer);
 
+        const tries = [];
+        function checkInput(input) { // alert의 반환값은 undefined = false
+            if (input.length !== 4) { // 입력창에 쓴 숫자의 길이가 4가 아닌가
+                return alert("4자리 숫자를 입력해주세요");
+            } if (new Set(input).size !== 4) { // new Set은 새로운 배열을 만드는데 2234 이런식으로 값이 나오면 중복된 2값을 제거해서 234만 남는다. 또한 length가 아닌 size로 한다. // 중복된 숫자가 있는가?
+                return alert("중복되지 않게 입력해 주세요");
+            } if (typeof (input) !== 'number') { // 숫자만 입력하게
+                return alert('숫자만 입력하세요')
+            }
+            if (tries.includes(input)) { // 이미 시도한 값은 아닌가?
+                return alert("이미 시도한값입니다.");
+            }
+
+            return true;
+        }
+        $form.addEventListener('submit', (event) => {
+            event.preventDefault();// submit은 한번 누르면 새로고침(?) 되는 것을 보여주는데, 그럼 버튼을 클릭할때마다 위에 값들이 없어지게 된디. 그걸 방지하기 위해 이 코드를 실행한다.
+            const value = $input.value;
+            $input.value = '';
+            if (!checkInput(value)) {
+                return;
+            }// 입력값 문제 없음
+            if (answer.join('') === value) { //join = [3,1,4,6] -> 3145문자열로 바꿈 = 배열을 문자열로 바꿈 = ''를 안쓰면 콤마가 생김 // '3146'.split('')배열이 생김  '3146'.split('1')1을 기준으로 [3, 46] 이렇게 나뉨
+                $logs.textContent = '홈런';
+                return;
+            }
+            if (tries.length >= 9) {
+                const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+                $logs.appendChild(message);
+                return;
+            }
+            //입력값 문제 없음
+            tries.push(value);
+
+            console.log(tries);
+            // console.log('서브밋', event); // event.target[0] = input, event.target[1]= form
+        })
     </script>
 </body>
 
 </html>
+
+<!-- if (!checkInput(value)) {
+return; }
+    if (answer.join('') === value) {
+        $logs.textContent = '홈런';
+        return;
+    }
+    if (tries.length >= 9) 
+        const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+        $logs.appendChild(message);
+        return;
+    }
+    //입력값 문제 없음
+    tries.push(value);
+}  -->
