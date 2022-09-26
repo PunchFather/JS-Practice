@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>숫자야구</title>
+</head>
+
+<body>
+    <form id="form">
+        <input type="text" id="input">
+        <button>확인</button>
+    </form>
+    <div id="logs"></div>
+    <script>
+        const $input = document.querySelector('#input');
+        const $form = document.querySelector('#form');
+        const $logs = document.querySelector('#logs');
+
+        const numbers = [];
+        for (let n = 0; n < 9; n += 1) {
+            numbers.push(n + 1)
+        }
+
+        const answer = [];
+        for (let n = 0; n < 4; n += 1) { // 4번 돌리고
+            const index = Math.floor(Math.random() * numbers.length) // 0에서 8사이 정수를뽑아내서 => numbers가 splice를하면 numbers 인덱스는 하나씩 줄어들기때문에, const index무작위 뽑는 값도 줄어들게 만들기 위해 9-n 한거임  (9 - n) /numbers.length하면 알아서 줄어들어서 -n안해도됌
+            answer.push(numbers[index]) // answer에 numbers[무작위숫자]를 뽑아
+            numbers.splice(index, 1) // numbers에서 무작위 숫자 나왔던 것을 빼서 지워라.
+        }
+        console.log(answer);
+
+    </script>
+</body>
+
+</html>
