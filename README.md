@@ -32,3 +32,25 @@ function solution(num1, num2) {
 }
 
 solution(2, 3)
+
+//https://school.programmers.co.kr/learn/courses/30/lessons/120807
+
+function solution(num1, num2) {
+var answer;     
+if(num1 === num2){
+answer = 1 }
+else{
+    answer = -1
+};
+
+    return answer;
+}
+
+solution(2,3)
+
+//  이렇게 푸는게 더 좋아보임 
+
+function solution(num1, num2) {
+    var answer = num1 === num2 ? 1 : -1;
+    return answer;
+}
