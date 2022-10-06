@@ -54,3 +54,42 @@ function solution(num1, num2) {
     var answer = num1 === num2 ? 1 : -1;
     return answer;
 }
+
+----- 위에는 프로그래머스 레벨 0 -----
+---- 아래는 프로그래머스 레벨 1 ------ 
+https://school.programmers.co.kr/learn/courses/30/lessons/12928
+
+function solution(n) {
+    var answer = 0;
+
+for(let i=0; i <= n; i++){
+    if(n%i !== 0) continue
+    answer += i; 
+}
+    return answer;
+}
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/12931
+function solution(n)
+{
+    let result = n;
+    let arr = (result + "").split('');
+    let num = arr.map((i)=> Number(i))
+    var answer = 0;
+
+
+    for(let i = 0; i < num.length; i++) {
+answer = answer + num[i];}
+
+    // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+    console.log('Hello Javascript')
+
+    return answer;
+}
+
+/// 
+function solution(n){
+    // 쉬운방법
+    return (n+"").split("").reduce((acc, curr) => acc + parseInt(curr), 0)
+}
