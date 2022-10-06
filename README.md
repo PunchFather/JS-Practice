@@ -23,3 +23,12 @@ for (let i=1; i<=9; i++){
 console.log(result);
 
 아홉번 반복문 돌리는 것은 알았느나 / 리절트에 +'' 이렇게 넣는걸 생각 못했다.
+
+
+// https://school.programmers.co.kr/learn/courses/30/lessons/120803
+function solution(num1, num2) {
+    var answer = num1 - num2;
+    return answer;
+}
+
+solution(2, 3)
