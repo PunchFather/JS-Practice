@@ -133,3 +133,4 @@ function solution(n) {
 https://school.programmers.co.kr/learn/courses/30/lessons/12916
 https://school.programmers.co.kr/learn/courses/30/lessons/12947
 https://school.programmers.co.kr/learn/courses/30/lessons/12933
+https://school.programmers.co.kr/learn/courses/30/lessons/12925
