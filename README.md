@@ -93,3 +93,39 @@ function solution(n){
     // 쉬운방법
     return (n+"").split("").reduce((acc, curr) => acc + parseInt(curr), 0)
 }
+
+//https://school.programmers.co.kr/learn/courses/30/lessons/12932
+
+// 내풀이 
+function solution(n) {
+    let arr = (n + "").split('').map(function(item) {
+    return parseInt(item, 10);
+})
+    var answer = [];
+    for(let i = arr.length-1 ; i >= 0; i--){
+     answer.push(arr[i])
+    } 
+    return answer;
+}
+
+//다른 사람 풀이 
+function solution(n) {
+    // 문자풀이
+    // return (n+"").split("").reverse().map(v => parseInt(v));
+
+    // 숫자풀이
+    var arr = [];
+
+    do {
+        arr.push(n%10);
+        n = Math.floor(n/10);
+    } while (n>0);
+
+    return arr;
+}
+
+// 다른사람풀이 2
+
+function solution(n) {
+    return (n + '').split('').reverse().map(n => parseInt(n));
+}
