@@ -129,3 +129,5 @@ function solution(n) {
 function solution(n) {
     return (n + '').split('').reverse().map(n => parseInt(n));
 }
+https://school.programmers.co.kr/learn/courses/30/lessons/12916
+https://school.programmers.co.kr/learn/courses/30/lessons/12947
