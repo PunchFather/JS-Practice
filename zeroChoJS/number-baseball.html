@@ -36,9 +36,10 @@
                 return alert("4자리 숫자를 입력해주세요");
             } if (new Set(input).size !== 4) { // new Set은 새로운 배열을 만드는데 2234 이런식으로 값이 나오면 중복된 2값을 제거해서 234만 남는다. 또한 length가 아닌 size로 한다. // 중복된 숫자가 있는가?
                 return alert("중복되지 않게 입력해 주세요");
-            } if (typeof (input) !== 'number') { // 숫자만 입력하게
-                return alert('숫자만 입력하세요')
             }
+            // } if (typeof (input) !== 'number') { // 숫자만 입력하게
+            //     return alert('숫자만 입력하세요')
+            // }
             if (tries.includes(input)) { // 이미 시도한 값은 아닌가?
                 return alert("이미 시도한값입니다.");
             }

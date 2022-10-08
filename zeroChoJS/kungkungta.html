@@ -23,14 +23,21 @@
     const $word = document.querySelector('#word');
     const $input = document.querySelector('input');
     const $button = document.querySelector('button');
+    const memoryWord = document.createElement("span")
+    const memoryTitle = document.createTextNode('작업한 파일')
+    document.body.appendChild(memoryWord);
+    const n = ['자바스', '스플레', '레몬트리']
+    const a = document.createElement("li");
+    con
 
     let word; // 제시어
-    let newWord; // 다음 제시어
+    let newWord = []; // 다음 제시어
+
     console.log(number)
 
     const onClickButton = () => {
         if (!word || (word[word.length - 1] === newWord[0] && newWord.length === 3)) {// 제시어 비어잇을때 
-            word = newWord // 입력한 단어 제시어 
+            word = newWord; // 입력한 단어 제시어 
             if (word.length === 3) { // 세글자이면 통과
                 console.log("다음으로")
                 $input.value = "" // 인풋창은 비워주고
@@ -65,7 +72,7 @@
 
     $button.addEventListener("click", onClickButton);
     $input.addEventListener('input', onInput);
-
+    console.log(newWord)
 
 
 </script>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+    <style>
+        .ball {
+            display: block;
+            border: 1px solid black;
+            border-radius: 20px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 20px;
+            text-align: center;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="result">추첨 결과는?</div>
+    <div id="bonus">보너스</div>
+</body>
+<script>
+    const candidate = Array(45) // 1부터 45까지 배열을 만듬
+        .fill()
+        .map((v, i) => i + 1);
+    const shuffle = [];
+    while (candidate.length > 0) {
+        const random = Math.floor(Math.random() * candidate.length); // 무작위로 45개 인덱스 뽑기
+        const spliceArray = candidate.splice(random, 1); // 뽑은 값은 배열에 들어 있음
+        const value = spliceArray[0];
+        shuffle.push(value);
+    }
+    //slice(0,3) 0번째부터 2까지 뽑아라. => slice는 원본이 바뀌지 않음
+    console.log(shuffle);
+    const winBalls = shuffle.slice(0, 6).sort((a, b) => a - b); // 뽑은 숫자 오름차순 => sort()자체를 하면 배열값이 변경되서, slice().sort하면 원본 배열값이 변경되지 않음 => a-b 오름차순 , b-a  내림차순 => 문자열 완전 사전순으로 검사하려면 .localeCompare())입니다.
+    const bonus = shuffle[6]; // 보너스 점수
+    console.log(winBalls, bonus);
+
+    const $result = document.querySelector("#result");
+    const $bonus = document.querySelector("#bonus");
+
+    /**number는 배열, 타겟은 결과에 나오는 값**/
+    const showBall = (number, $target) => {
+        const $ball = document.createElement("div");
+        $ball.className = "ball";
+        $ball.textContent = number;
+        $target.appendChild($ball);
+    };
+
+    for (let i = 0; i < winBalls.length; i++) {
+        // winball길이 만큼 반복문이 돌아서 값을 뽑아냄
+        setTimeout(() => {
+            showBall(winBalls[i], $result);
+        }, (i + 1) * 1000);
+    }
+
+    setTimeout(() => {
+        showBall(bonus, $bonus);
+    }, 7000);
+</script>
+
+</html>
