@@ -1,0 +1,66 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    <style>
+        #computer {
+            width: 142px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="computer"></div>
+    <div>
+        <button id="scissors" class="btn">가위</button>
+        <button id="rock" class="btn">바위</button>
+        <button id="paper" class="btn">보</button>
+    </div>
+    <div id="score">0</div>
+</body>
+<script>
+    const $computer = document.querySelector("#computer");
+    const $scissors = document.querySelector("#scissors");
+    const $rock = document.querySelector("#rock");
+    const $paper = document.querySelector("#paper");
+    const $score = document.querySelector("#score");
+
+    const IMG_URL = './rsp.png';
+    $computer.style.background = `url(${IMG_URL}) -464px 0`;
+    $computer.style.backgroundSize = `auto 200px`;
+
+
+    const rspX = { ///공통된 것들이 있으면 하나의 객체로 묶어서 사용
+        scissors: '0', // 가위 
+        rock: '-220px', // 바위
+        paper: '-440px' // 보
+    }
+    // $computer.style.background = `url(${IMG_URL}) 0 0`; // 가위
+    // $computer.style.background = `url(${IMG_URL}) -220 0`; // 바위
+    // $computer.style.background = `url(${IMG_URL}) -440 0`; // 보
+
+    let computerChoice = 'scissors';
+
+    const changeComputerHand = () => {
+        if (computerChoice === 'scissors') { // 가위면 
+            computerChoice = 'rock';
+        } else if (computerChoice === 'rock') {
+            computerChoice = 'paper';
+        }
+        else if (computerChoice === 'paper') {
+            computerChoice = 'scissors';
+        }
+        //rspX.computerChoice => 이렇게 적으면 .은  문자열로 판단한다. rspX객체 키값에 문자열이 없으니 이것은 실행되지 않는다. 그래서 [] 이렇게 적어준것
+        $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`; // 바위를 보여주고
+        $computer.style.backgroundSize = `auto 200px`;
+    }
+
+    setInterval(changeComputerHand, 50)
+
+</script>
+
+
+</html>
