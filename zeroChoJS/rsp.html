@@ -58,9 +58,68 @@
         $computer.style.backgroundSize = `auto 200px`;
     }
 
-    setInterval(changeComputerHand, 50)
+    let intervalId = setInterval(changeComputerHand, 50); // setInterval을 중지하려면 이렇게 변수(아이디)에 집어넣고 클리어 인터벌(아래 코드)을 하면 된다.
+
+    const scoreTable = {
+        rock: 0,
+        scissors: 1,
+        paper: -1,
+    };
+    // clickbutton 5번 연속으로 누르면 => 인터벌에 1번,2번,3번,4번,5번 => 마지막 5번만 interval에 들어감 => 그 다음에 버튼을 클릭하면 5번만 취소
+    let clickable = true;
+    let score = 0;
+    let message = '';
+    const clickButton = (event) => {
+        if (clickable) {
+            clearInterval(intervalId);
+            clickable = false;
+            const myChoice = event.target.textContent === '바위' ? 'rock' : event.target.textContent === '가위' ? 'scissors' : 'paper';
+            const myScore = scoreTable[myChoice];
+            const computerScore = scoreTable[computerChoice];
+            const diff = myScore - computerScore;
+            if ([2, -1].includes(diff)) {
+                score += 1;
+                message = '승리';
+            } else if ([-2, 1].includes(diff)) {
+                score -= 1;
+                message = '패배';
+            } else {
+                message = '무승부';
+            }
+            $score.textContent = `${message} 총 : ${score}점`;
+            // 점수 계산 및 화면 표시
+            setTimeout(() => {
+                clickable = true;
+                intervalId = setInterval(changeComputerHand, 50);
+            }, 1000);
+        }
+    }
+
+    $rock.addEventListener('click', clickButton);
+    $scissors.addEventListener('click', clickButton);
+    $paper.addEventListener('click', clickButton);
+
+
 
 </script>
 
 
 </html>
+<!-- 
+// clickbutton 5번 연속으로 누르면 => 인터벌에 1번,2번,3번,4번,5번 => 마지막 5번만 interval에 들어감 => 그 다음에 버튼을 클릭하면 5번만 취소
+const clickButton = () => {
+    clearInterval(intervalId);
+    $rock.removeEventListener('click', clickButton); //  => 버튼을 클릭하고 있는 동안은 버튼 클릭 못하게
+    $scissors.removeEventListener('click', clickButton);
+    $paper.removeEventListener('click', clickButton);
+    // 점수 계산 및 화면 표시
+    setTimeout(() => { // 클리어 인터벌 후 다시 돌리기 위해 적은 것
+        intervalId = setInterval(changeComputerHand, 50); // 다시 돌아갈때 버튼 클릭 가능하게
+        $rock.addEventListener('click', clickButton);
+        $scissors.addEventListener('click', clickButton);
+        $paper.addEventListener('click', clickButton);
+    }, 1000);
+};
+$rock.addEventListener('click', clickButton);
+$scissors.addEventListener('click', clickButton);
+$paper.addEventListener('click', clickButton); -->
