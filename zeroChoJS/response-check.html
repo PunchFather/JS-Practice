@@ -36,20 +36,51 @@
     const $screen = document.querySelector('#screen');
     const $result = document.querySelector('#result')
 
+    let stratTime; // 처음 시간속도를 담는 변수  
+    let endTime; // 마지막 시간 속도를 담는 변수
+    const records = []
+    let timeoutId;
+
     $screen.addEventListener('click', function (event) { // evenet = $screen // 태그.classList.contains('클래스')은 태그에 해당 클래스가 있는지 확인
-        if (event.target.classList.contains('waiting')) {
+        if (event.target.classList.contains('waiting')) { //파랑
             $screen.classList.remove('waiting'); // 클래스 지우기
-            $screen.classList.add('ready'); // 클래스 추가하기
+            $screen.classList.add('ready'); // 클래스 추가하기 => 여러 클래스 추가 가능하며, 중복된 클래스명은 추가x
             $screen.textContent = '초록색이 되면 클릭하세요 '
-        } else if (event.target.classList.contains('ready')) {
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
+                stratTime = new Date();  // 첫 시간 재기
                 $screen.classList.remove('ready'); // 클래스 지우기
                 $screen.classList.add('now');
-            }, 3000)
+                $screen.textContent = '클릭하세요!'
+            }, Math.floor(Math.random() * 1000) + 2000) //2000~3000사이의 수 == 2초에서 3초
+
+        } else if (event.target.classList.contains('ready')) { // 빨강
+            clearTimeout(timeoutId);
             $screen.classList.remove('ready'); // 클래스 지우기
-            $screen.classList.add('now');
-            alert("넘급해요")
-        } else if (event.target.classList.contains('now')) {
+            $screen.classList.add('waiting');
+            $screen.textContent = '너무 성급하세요!'
+
+        } else if (event.target.classList.contains('now')) { //초록
+            endTime = new Date();
+            const current = endTime - stratTime;
+            records.push(current);
+            const average = records.reduce((a, c) => a + c) / records.length; //평균 구하는 함수
+            $result.textContent = `현재 ${current}ms, 평균: ${average}ms `
+            const topFive = records.sort((p, c) => p - c).slice(0, 5);
+            topFive.forEach((top, index) => {
+                $result.append(
+                    document.createElement('br'),
+                    `${index + 1}위 : ${top}ms`,
+                );
+            })
+
+            stratTime = null;
+            endTime = null;
+
+            $screen.classList.remove('now');
+            $screen.classList.add('waiting');
+            $screen.textContent = '클릭해서 시작하세요 !'
+            // 끝시간 재기 
+            // 시간 차이 저장하기
 
         }
     })
